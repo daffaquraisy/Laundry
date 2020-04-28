@@ -94,7 +94,7 @@
                         <div class="info">
                             <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
                                 <span>
-                                    {{Auth::user()->name}}
+                                    {{-- {{Auth::user()->name}} --}}
                                     <span class="user-level">Online</span>
                                 </span>
                             </a>

@@ -19,4 +19,5 @@ Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::resource('/outlets', 'OutletController');
 Route::resource('/users', 'UserController');
