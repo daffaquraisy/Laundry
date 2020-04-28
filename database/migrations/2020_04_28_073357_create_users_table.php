@@ -20,6 +20,8 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->bigInteger('outlet_id')->unsigned()->nullable();
+            $table->foreign('outlet_id')->references('id')->on('patriarches')->onDelete('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }
