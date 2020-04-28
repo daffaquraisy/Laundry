@@ -20,4 +20,6 @@ Auth::routes(['register' => false]);
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('/outlets', 'OutletController');
+
+Route::get('/ajax/users/search', 'UserController@ajaxSearch');
 Route::resource('/users', 'UserController');

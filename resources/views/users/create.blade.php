@@ -6,11 +6,6 @@
 
 <div class="col-md-8">
 
-@if(session('status'))
-    <div class="alert alert-success">
-        {{session('status')}}
-    </div>
-@endif 
 
     <form enctype="multipart/form-data" class="bg-white shadow-sm p-3" action="{{route('users.store')}}" method="POST">
 
@@ -85,10 +80,38 @@
 
         <br>
 
+        <label for="outlets">Outlet</label><br>
+        <select name="outlet_id" multiple id="outlets" class="form-control">
+        </select>
+        <br> <br>
+
             <input class="btn btn-primary" type="submit" value="Save">
 
     </form>
 
 </div>
 
+@endsection
+
+@section('footer-scripts')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script>
+    $('#outlets').select2({
+        maximumSelectionLength: 1,
+        ajax: {
+            url: '/ajax/users/search',
+            processResults: function (data) {
+                return {
+                    results: data.map(function (item) {
+                        return {
+                            id: item.id,
+                            text: item.nama,
+                        }
+                    })
+                }
+            }
+        }
+    });
+</script>
 @endsection

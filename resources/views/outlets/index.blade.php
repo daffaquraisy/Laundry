@@ -11,7 +11,7 @@
 @endif
 
 <div class="row">
-    <div class="col-md-12 text-right">
+    <div class="col-md-12 text-right mb-3">
         <a href="{{route('outlets.create')}}" class="btn btn-primary">Create outlet</a>
    </div>
 </div>

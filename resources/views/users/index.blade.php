@@ -3,16 +3,30 @@
 @section("title") Users list @endsection
 @section("content")
 <h1>Management Users</h1>
-@if(session('status'))
+@if(session('success'))
 <div class="alert alert-success">
-    {{session('status')}}
+    {{session('success')}}
 </div>
 @endif
 
 <div class="row">
-    <div class="col-md-12 text-right">
+    <div class="col-md-12 text-right mb-3">
         <a href="{{route('users.create')}}" class="btn btn-primary">Create user</a>
    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <form action="{{route('users.index')}}">
+            <div class="input-group mb-3">
+                <input value="{{Request::get('keyword')}}" name="keyword" class="form-control col-md-10" type="text"
+                    placeholder="Cari nama pengguna..." />
+                <div class="input-group-append">
+                    <input type="submit" value="Filter" class="btn btn-primary btn-sm">
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 
    <br>   
@@ -20,9 +34,9 @@
 <table class="table table-bordered">
     <thead>
         <tr>
-            <th><b>Name</b></th>
-            <th><b>Username</b></th>
-            <th><b>Email</b></th>
+            <th class="text-center"><b>#</b></th>
+            <th><b>Nama</b></th>
+            <th><b>Outlet</b></th>
             <th><b>Action</b></th>
         </tr>
     </thead>
@@ -30,9 +44,9 @@
 
         @foreach($users as $user)
         <tr>
+            <td class="text-center">{{$no++}}</td>
             <td>{{$user->name}}</td>
-            <td>{{$user->username}}</td>
-            <td>{{$user->email}}</td>
+            <td>{{$user->outlets->nama}}</td>
             
             <td>
                 <a class="btn btn-info text-white btn-sm" href="{{route('users.edit', [$user->id])}}">Edit</a>

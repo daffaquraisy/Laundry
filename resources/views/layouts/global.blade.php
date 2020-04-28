@@ -87,22 +87,7 @@
         <div class="sidebar sidebar-style-2">
             <div class="sidebar-wrapper scrollbar scrollbar-inner">
                 <div class="sidebar-content">
-                    <div class="user">
-                        {{-- <div class="avatar-sm float-left mr-2">
-                            <img src="../assets/img/profile.jpg" alt="..." class="avatar-img rounded-circle">
-                        </div> --}}
-                        <div class="info">
-                            <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
-                                <span>
-                                    {{-- {{Auth::user()->name}} --}}
-                                    <span class="user-level">Online</span>
-                                </span>
-                            </a>
-                            <div class="clearfix"></div>
-
-
-                        </div>
-                    </div>
+                    
                     <ul class="nav nav-primary">
                         
 
@@ -114,10 +99,17 @@
                         </li>
 
                         <li class="nav-item">
+                            <a class="nav-link" href="{{route('outlets.index')}}">
+                            <i class="fa-fw fas fa-box-open"></i>
+                            <span>Manage Outlets</span></a>
+                        </li>
+
+                        <li class="nav-item">
                             <a class="nav-link" href="{{route('users.index')}}">
                             <i class="fas fa-fw fa-users"></i>
                             <span>Manage Users</span></a>
                         </li>
+                        
                     
                     
                         <li class="nav-item">

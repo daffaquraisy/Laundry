@@ -11,10 +11,17 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = \App\User::paginate(10);
-        return view('users.index', ['users' => $users]);
+        $users = \App\User::with('outlets')->paginate(10);
+        $no = 1;
+
+        $filterKeyword = $request->get('keyword');
+        if ($filterKeyword) {
+            $users = \App\User::where('name', 'LIKE', "%$filterKeyword%")->with('outlets')->paginate(10);
+        }
+
+        return view('users.index', ['users' => $users, 'no' => $no]);
     }
 
     /**
@@ -50,9 +57,10 @@ class UserController extends Controller
         $new_user->username = $request->get('username');
         $new_user->roles = json_encode($request->get('roles'));
         $new_user->password = \Hash::make($request->get('password'));
+        $new_user->outlet_id = $request->get('outlet_id');
 
         $new_user->save();
-        return redirect()->route('users.create')->with('status', 'User successfully created');
+        return redirect()->route('users.index')->with('success', 'Data user berhasil ditambah');
     }
 
     /**
@@ -63,7 +71,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = \App\User::with('outlets')->findOrFail($id);
+        return view('users.show', ['user' => $user]);
     }
 
     /**
@@ -74,7 +83,10 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = \App\User::with('outlets')->findOrFail($id);
+        $outlets = \App\Outlet::pluck('nama', 'id')->toArray();
+
+        return view('users.edit')->with(compact('user', 'outlets'));
     }
 
     /**
@@ -86,7 +98,20 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        \Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|email',
+            'username' => 'required',
+            'roles' => 'required'
+        ])->validate();
+
+        $user = \App\User::findOrFail($id);
+        $user->name = $request->get('name');
+        $user->email = $request->get('email');
+        $user->roles = $request->get('roles');
+
+        $user->save();
+        return redirect()->route('users.index')->with('success', 'Data user berhasil diubah');
     }
 
     /**
@@ -97,6 +122,18 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = \App\User::findOrFail($id);
+        $user->delete();
+
+        return redirect()->route('users.index')->with('success', 'Data user berhasil dihapus');
+    }
+
+    public function ajaxSearch(Request $request)
+    {
+        $keyword = $request->get('q');
+
+        $outlets = \App\Outlet::where("nama", "LIKE", "%$keyword%")->get();
+
+        return $outlets;
     }
 }
