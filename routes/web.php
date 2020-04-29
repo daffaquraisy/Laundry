@@ -23,3 +23,5 @@ Route::resource('/outlets', 'OutletController');
 
 Route::get('/ajax/users/search', 'UserController@ajaxSearch');
 Route::resource('/users', 'UserController');
+
+Route::resource('/members', 'MemberController');

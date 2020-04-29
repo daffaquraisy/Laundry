@@ -109,6 +109,12 @@
                             <i class="fas fa-fw fa-users"></i>
                             <span>Manage Users</span></a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('members.index')}}">
+                            <i class="fas fa-fw fa-user-alt"></i>
+                            <span>Manage Members</span></a>
+                        </li>
                         
                     
                     
