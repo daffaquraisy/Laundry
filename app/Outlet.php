@@ -13,4 +13,9 @@ class Outlet extends Model
     {
         return $this->hasMany('App\User');
     }
+
+    public function packets()
+    {
+        return $this->hasMany('App\Packet');
+    }
 }

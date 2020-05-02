@@ -25,3 +25,6 @@ Route::get('/ajax/users/search', 'UserController@ajaxSearch');
 Route::resource('/users', 'UserController');
 
 Route::resource('/members', 'MemberController');
+
+Route::get('/ajax/packets/search', 'PacketController@ajaxSearch');
+Route::resource('/packets', 'PacketController');
