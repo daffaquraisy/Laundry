@@ -17,14 +17,16 @@ Route::get('/', function () {
 
 Auth::routes(['register' => false]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('/outlets', 'OutletController');
+    Route::resource('/outlets', 'OutletController');
 
-Route::get('/ajax/users/search', 'UserController@ajaxSearch');
-Route::resource('/users', 'UserController');
+    Route::get('/ajax/users/search', 'UserController@ajaxSearch');
+    Route::resource('/users', 'UserController');
 
-Route::resource('/members', 'MemberController');
+    Route::resource('/members', 'MemberController');
 
-Route::get('/ajax/packets/search', 'PacketController@ajaxSearch');
-Route::resource('/packets', 'PacketController');
+    Route::get('/ajax/packets/search', 'PacketController@ajaxSearch');
+    Route::resource('/packets', 'PacketController');
+});

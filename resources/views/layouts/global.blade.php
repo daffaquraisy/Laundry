@@ -1,235 +1,150 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--[if IE 9]> <html class="ie9 no-js" lang="en"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
 
 <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>My Laundry @yield('title')</title>
-    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
-    <link rel="icon" href="{{asset('assets/img/icon.ico')}}" type="image/x-icon" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Laundry @yield("title")</title>
+    <link rel="stylesheet" href="{{asset('polished/polished.min.css')}}">
+    <link rel="stylesheet" href="{{asset('polished/iconic/css/open-iconic-bootstrap.min.css')}}">
+    <style>
+        .grid-highlight {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            background-color: #5c6ac4;
+            border: 1px solid #202e78;
+            color: #fff;
+        }
 
+        hr {
+            margin: 6rem 0;
+        }
 
-    <!-- Fonts and icons -->
-    <script src="{{asset('assets/js/plugin/webfont/webfont.min.js')}}"></script>
+        hr+.display-3,
+        hr+.display-2+.display-3 {
+            margin-bottom: 2rem;
+        }
 
-    <link rel="stylesheet" href="{{asset('assets/css/fonts.min.css')}}">
-
-    
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700,900&display=swap" rel="stylesheet">
-{{-- 
-    <script>
-        WebFont.load({
-            google: {
-                "families": ["Montserrat:300,400,700,900"]
-            },
-            custom: {
-                "families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular",
-                    "Font Awesome 5 Brands", "simple-line-icons"
-                ],
-                urls: ['../assets/css/fonts.min.css']
-            },
-            active: function () {
-                sessionStorage.fonts = true;
-            }
-        });
-    </script> --}}
-
-    <!-- CSS Files -->
-    <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/css/atlantis.min.css')}}">
-
-    <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link rel="stylesheet" href="{{asset('assets/css/demo.css')}}">
+    </style>
+        <script type="text/javascript">
+            document.documentElement.className =
+           document.documentElement.className.replace('no-js', 'js') +
+           (document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#BasicStructure", "1.1") ? ' svg' : ' no-svg');
+        </script>
 </head>
 
+
 <body>
-    <div class="wrapper">
-        <div class="main-header">
-            <!-- Logo Header -->
-            <div class="logo-header" data-background-color="blue">
+    <nav class="navbar navbar-expand p-0">
+        <a class="navbar-brand text-center col-xs-12 col-md-3 col-lg-2" href="index.html"> Laundry </a>
+        <button class="btn btn-link d-block d-md-none" datatoggle="collapse" data-target="#sidebar-nav" role="button">
+            <span class="oi oi-menu"></span>
+        </button>
 
-                <i class="fas fa-box-open fa-2x text-white"></i>
-                <h3 class="ml-3 mr-3 text-white"><b>My Laundry</b></h3>
-                <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse"
-                    data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon">
-                        <i class="icon-menu"></i>
-                    </span>
-                </button>
-                {{-- <div class="nav-toggle">
-                    <button class="btn btn-toggle toggle-sidebar">
-                        <i class="icon-menu"></i>
-                    </button>
-                </div> --}}
-            </div>
-            <!-- End Logo Header -->
-
-            <!-- Navbar Header -->
-            <nav class="navbar navbar-header navbar-expand-lg" data-background-color="blue2">
-
-                <div class="container-fluid">
-                    <div class="collapse" id="search-nav">
-                        <form class="navbar-left navbar-form nav-search mr-md-3">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <button type="submit" class="btn btn-search pr-1">
-                                        <i class="fa fa-search search-icon"></i>
-                                    </button>
-                                </div>
-                                <input type="text" placeholder="Search ..." class="form-control">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </nav>
-            <!-- End Navbar -->
-        </div>
-
-        <!-- Sidebar -->
-        <div class="sidebar sidebar-style-2">
-            <div class="sidebar-wrapper scrollbar scrollbar-inner">
-                <div class="sidebar-content">
-                    
-                    <ul class="nav nav-primary">
-                        
-
-                        <li class="nav-section">
-                            <span class="sidebar-mini-icon">
-                                <i class="fa fa-ellipsis-h"></i>
-                            </span>
-                            <h4 class="text-section">Menu</h4>
-                        </li>
-
-                        @can('manage-outlets', $user ?? '')
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('outlets.index')}}">
-                            <i class="fa-fw fas fa-box-open"></i>
-                            <span>Manage Outlets</span></a>
-                        </li>
-                        @endcan
-
-                        @can('manage-users', $user ?? '')
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('users.index')}}">
-                            <i class="fas fa-fw fa-users"></i>
-                            <span>Manage Users</span></a>
-                        </li>
-                        @endcan
-
-                        @can('manage-members', $user ?? '')
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('members.index')}}">
-                            <i class="fas fa-fw fa-user-alt"></i>
-                            <span>Manage Members</span></a>
-                        </li>
-                        @endcan
-
-                        @can('manage-packets', $user ?? '')
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('packets.index')}}">
-                            <i class="fa-fw fas fa-box-open"></i>
-                            <span>Manage Packets</span></a>
-                        </li>
-                        @endcan
-                        
-                    
-                    
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
-                                <i class="fas fa-fw fa-sign-out-alt "></i>
-                                <span>Logout</span>
-                            </a>
-
-                        </li>
-
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- End Sidebar -->
-
-        <div class="main-panel mb-5">
-            <div class="content">
-                {{-- <div class="panel-header bg-primary-gradient">
-                    <div class="page-inner py-5">
-                        <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
-                            <div>
-                                <h2 class="text-white pb-2 fw-bold">Dashboard</h2>
-                                <h5 class="text-white op-7 mb-2">Hello \Auth::user()->name</h5>
-                            </div>
-
-                        </div>
-                    </div> --}}
-                    
-                <div class="page-inner">
-
-                    
-
-                    @yield('content')
-
-                </div>
-                </div>
-
-
-                <!-- Logout Modal-->
-                <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                    <div class="modal-footer">
-                        <button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
-                        <form action="{{route("logout")}}" method="POST">
+        <input class="border-dark bg-primary-darkest form-control d-none d-md-block w-50 ml-3 mr-2" type="text"
+            placeholder="Search" arialabel="Search">
+        <div class="dropdown d-none d-md-block">
+            @if(\Auth::user())
+            <button class="btn btn-link btn-link-primary dropdown-toggle" id="navbar-dropdown" data-toggle="dropdown">
+                {{Auth::user()->name}}
+            </button>
+            @endif
+            <div class="dropdown-menu dropdown-menu-right" id="navbardropdown">
+                <a href="#" class="dropdown-item">Profile</a>
+                <a href="#" class="dropdown-item">Setting</a>
+                <div class="dropdown-divider"></div>
+                <li>
+                    <form action="{{route("logout")}}" method="POST">
                         @csrf
-                        <button class="btn btn-primary" style="cursor:pointer">Sign Out</button>
+                        <button class="dropdown-item" style="cursor:pointer">Sign Out</button>
                     </form>
-                    </div>
-                    </div>
-                </div>
-                </div>
-
-
+                </li>
             </div>
-            <footer class="footer">
-                <div class="container-fluid">
+        </div>
+    </nav>
+    <div class="container-fluid h-100 p-0">
+        <div style="min-height: 100%" class="flex-row d-flex align-itemsstretch m-0">
+            <div class="polished-sidebar bg-light col-12 col-md-3 col-lg-2 p-0 collapse d-md-inline" id="sidebar-nav">
+                <ul class="polished-sidebar-menu ml-0 pt-4 p-0 d-md-block">
+                    <input class="border-dark form-control d-block d-md-none mb-4" type="text" placeholder="Search"
+                        aria-label="Search" />
+                    <li class="nav-item"><a class="nav-link" href="/home"><span class="fa fa-home fa-fw"></span> Home</a>
+                    </li>
+                    @can('manage-outlets', $user ?? '')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('outlets.index')}}">
+                        <i class="fa-fw fas fa-box-open"></i>
+                        <span>Manage Outlets</span></a>
+                    </li>
+                    @endcan
+                    
+                    @can('manage-users', $user ?? '')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('users.index')}}">
+                        <i class="fas fa-fw fa-users"></i>
+                        <span>Manage Users</span></a>
+                    </li>
+                    @endcan
+                    
+                    @can('manage-members', $user ?? '')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('members.index')}}">
+                        <i class="fas fa-fw fa-user-alt"></i>
+                        <span>Manage Members</span></a>
+                    </li>
+                    @endcan
+                    
+                    @can('manage-packets', $user ?? '')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('packets.index')}}">
+                        <i class="fa-fw fas fa-box-open"></i>
+                        <span>Manage Packets</span></a>
+                    </li>
+                    @endcan
+                        
 
-                    <div class="copyright ml-auto">
-                        Copyright © Uji Kompetensi 2020
+                    <div class="d-block d-md-none">
+                        <div class="dropdown-divider"></div>
+                        <li><a href="#"> Profile</a></li>
+                        <li><a href="#"> Setting</a></li>
+                        <li>
+                            <form action="{{route("logout")}}" method="POST">
+                                @csrf
+                                <button class="dropdown-item" style="cursor:pointer">Sign Out</button>
+                            </form>
+
+                        </li>
+                    </div>
+                </ul>
+                <div class="pl-3 d-none d-md-block position-fixed" style="bottom: 0px">
+                    <span class="oi oi-cog"></span> Setting
+                </div>
+            </div>
+            <div class="col-lg-10 col-md-9 p-4">
+                <div class="row ">
+                    <div class="col-md-12 pl-3 pt-2">
+                        <div class="pl-3">
+                            <h3>@yield("pageTitle")</h3>
+                            <br />
+                        </div>
                     </div>
                 </div>
-            </footer>
+                @yield("content")
+            </div>
         </div>
     </div>
-    <!--   Core JS Files   -->
-    <script src="{{asset('assets/js/core/jquery.3.2.1.min.js')}}"></script>
-    <script src="{{asset('assets/js/core/popper.min.js')}}"></script>
-    <script src="{{asset('assets/js/core/bootstrap.min.js')}}"></script>
-    {{-- <script src="https://kit.fontawesome.com/20e16e5617.js"></script> --}}
-
-
-    <!-- jQuery UI -->
-    <script src="{{asset('assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js')}}"></script>
-    <script src="{{asset('assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js')}}"></script>
-
-    <!-- jQuery Scrollbar -->
-    <script src="{{asset('assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js')}}"></script>
-
-
-    <!-- Atlantis JS -->
-    <script src="{{asset('assets/js/atlantis.min.js')}}"></script>
-
-    <!-- Atlantis DEMO methods, don't include it in your project! -->
-    <script src="{{asset('assets/js/setting-demo.js')}}"></script>
-    <script src="{{asset('assets/js/demo.js')}}"></script>
-
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous">
+    </script>
     @yield('footer-scripts')
-    @yield('snap-js')
+    <script src="https://kit.fontawesome.com/20e16e5617.js"></script>
+
 </body>
 
 </html>
