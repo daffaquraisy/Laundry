@@ -63,40 +63,6 @@
     </form>
 
 </div>
-
-<script>
-    function dropdown(msg) {
-        var harga = msg;
-        $.ajax({
-            url: 'getNamaPaket/' + harga,
-            type: 'get',
-            dataType: 'json',
-            success: function (response) {
-                $("#district").empty();
-
-                var len = 0;
-                if (response['data'] != null) {
-                    len = response['data'].length;
-                }
-                if (len > 0) {
-                    // Read data and create <option >
-                    for (var i = 0; i < len; i++) {
-
-                        var id = response['data'][i].id;
-                        var harga = response['data'][i].harga;
-
-                        var option = "<option value='" + harga + "'>" + harga + "</option>";
-
-                        $("#harga").append(option);
-                    }
-                }
-
-            }
-        });
-    }
-
-</script>
-
 @endsection
 
 @section('footer-scripts')

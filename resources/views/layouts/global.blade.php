@@ -100,23 +100,37 @@
                             <h4 class="text-section">Menu</h4>
                         </li>
 
+                        @can('manage-outlets', $user ?? '')
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('outlets.index')}}">
                             <i class="fa-fw fas fa-box-open"></i>
                             <span>Manage Outlets</span></a>
                         </li>
+                        @endcan
 
+                        @can('manage-users', $user ?? '')
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('users.index')}}">
                             <i class="fas fa-fw fa-users"></i>
                             <span>Manage Users</span></a>
                         </li>
+                        @endcan
 
+                        @can('manage-members', $user ?? '')
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('members.index')}}">
                             <i class="fas fa-fw fa-user-alt"></i>
                             <span>Manage Members</span></a>
                         </li>
+                        @endcan
+
+                        @can('manage-packets', $user ?? '')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('packets.index')}}">
+                            <i class="fa-fw fas fa-box-open"></i>
+                            <span>Manage Packets</span></a>
+                        </li>
+                        @endcan
                         
                     
                     

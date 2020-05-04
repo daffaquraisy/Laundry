@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class MemberController extends Controller
 {
@@ -11,6 +12,16 @@ class MemberController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+
+            if (Gate::allows('manage-members')) return $next($request);
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        });
+    }
+
     public function index(Request $request)
     {
         $members = \App\Member::paginate(10);
