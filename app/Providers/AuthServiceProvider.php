@@ -40,5 +40,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('manage-packets', function ($user) {
             return count(array_intersect(["ADMIN"], json_decode($user->roles)));
         });
+
+        Gate::define('manage-invoice', function ($user) {
+            return count(array_intersect(["ADMIN", "KASIR"], json_decode($user->roles)));
+        });
     }
 }

@@ -13,4 +13,9 @@ class Packet extends Model
     {
         return $this->belongsTo('App\Outlet', 'outlet_id');
     }
+
+    public function transactions()
+    {
+        return $this->hasMany('App\Transaction');
+    }
 }

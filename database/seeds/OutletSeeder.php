@@ -12,9 +12,9 @@ class OutletSeeder extends Seeder
     public function run()
     {
         $outlet = new \App\Outlet;
-        $outlet->nama = "Herlan Wash";
-        $outlet->alamat = "Jl. Ciapus, No. 33";
-        $outlet->no_telp = "08765431234";
+        $outlet->nama = "Toko Luandry SBR";
+        $outlet->alamat = "Jl. SBR, No. 10";
+        $outlet->no_telp = "086255362638";
 
         $outlet->save();
 

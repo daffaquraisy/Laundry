@@ -131,7 +131,14 @@
                             <span>Manage Packets</span></a>
                         </li>
                         @endcan
-                        
+
+                        @can('manage-invoice', $user ?? '')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('transactions.index')}}">
+                            <i class="fas fa-fw fa-file-invoice"></i>
+                            <span>Manage Invoice</span></a>
+                        </li>
+                        @endcan
                     
                     
                         <li class="nav-item">
