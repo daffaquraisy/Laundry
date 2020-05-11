@@ -42,7 +42,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('manage-invoice', function ($user) {
-            return count(array_intersect(["ADMIN", "KASIR"], json_decode($user->roles)));
+            return count(array_intersect(["ADMIN", "KASIR", "OWNER"], json_decode($user->roles)));
         });
     }
 }
